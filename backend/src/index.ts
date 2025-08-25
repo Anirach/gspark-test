@@ -49,10 +49,6 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-// Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-
 // Compression middleware
 app.use(compression());
 
@@ -64,6 +60,21 @@ app.use('/uploads', express.static(path.join(process.cwd(), 'uploads'), {
   maxAge: '1d', // Cache static files for 1 day
   etag: true
 }));
+
+// Conditional body parsing middleware
+app.use((req, res, next) => {
+  const contentType = req.get('Content-Type');
+  
+  // Only parse as JSON if Content-Type indicates JSON
+  if (contentType && contentType.includes('application/json')) {
+    express.json({ limit: '10mb' })(req, res, next);
+  } else if (contentType && contentType.includes('application/x-www-form-urlencoded')) {
+    express.urlencoded({ extended: true, limit: '10mb' })(req, res, next);
+  } else {
+    // For multipart/form-data and others, skip JSON parsing
+    next();
+  }
+});
 
 // API routes
 app.use('/api', routes);

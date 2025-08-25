@@ -42,3 +42,36 @@
 2025-08-25T04:26:04:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
 2025-08-25T04:26:04:     at IncomingMessage.emit (node:events:524:28)
 2025-08-25T04:26:04:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T07:20:10: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T07:20:10:     at JSON.parse (<anonymous>)
+2025-08-25T07:20:10:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T07:20:10:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T07:20:10:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T07:20:10:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T07:20:10:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T07:20:10:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T07:20:10:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T07:20:10:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T07:20:10:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T07:20:24: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T07:20:24:     at JSON.parse (<anonymous>)
+2025-08-25T07:20:24:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T07:20:24:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T07:20:24:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T07:20:24:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T07:20:24:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T07:20:24:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T07:20:24:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T07:20:24:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T07:20:24:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T07:20:38: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T07:20:38:     at JSON.parse (<anonymous>)
+2025-08-25T07:20:38:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T07:20:38:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T07:20:38:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T07:20:38:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T07:20:38:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T07:20:38:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T07:20:38:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T07:20:38:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T07:20:38:     at endReadableNT (node:internal/streams/readable:1698:12)

@@ -31,23 +31,52 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     const url = `${this.baseURL}${endpoint}`;
     
+    // Don't set Content-Type for FormData - let browser handle it
     const config: RequestInit = {
-      headers: {
-        'Content-Type': 'application/json',
-        ...options.headers,
-      },
       ...options,
     };
+
+    // Only set Content-Type if not FormData
+    if (!(options.body instanceof FormData)) {
+      config.headers = {
+        'Content-Type': 'application/json',
+        ...options.headers,
+      };
+    } else {
+      // For FormData, only include other headers, not Content-Type
+      config.headers = {
+        ...options.headers,
+      };
+    }
 
     try {
       const response = await fetch(url, config);
       
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        let errorData;
+        try {
+          const contentType = response.headers.get('content-type');
+          if (contentType && contentType.includes('application/json')) {
+            errorData = await response.json();
+          } else {
+            const text = await response.text();
+            errorData = { error: text || `HTTP error! status: ${response.status}` };
+          }
+        } catch {
+          errorData = { error: `HTTP error! status: ${response.status}` };
+        }
         throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
       }
 
-      return await response.json();
+      // Check if response is JSON
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        return await response.json();
+      } else {
+        // If not JSON, treat as error
+        const text = await response.text();
+        throw new Error(`Expected JSON response but got: ${text.substring(0, 100)}...`);
+      }
     } catch (error) {
       console.error('API request failed:', error);
       throw error;
@@ -80,7 +109,7 @@ class ApiClient {
     if (data instanceof FormData) {
       options.body = data;
       // Don't set Content-Type for FormData - let browser handle it
-    } else {
+    } else if (data) {
       options.body = JSON.stringify(data);
       options.headers = { 'Content-Type': 'application/json' };
     }
@@ -94,8 +123,8 @@ class ApiClient {
     
     if (data instanceof FormData) {
       options.body = data;
-      // Don't set Content-Type for FormData
-    } else {
+      // Don't set Content-Type for FormData - let browser handle it
+    } else if (data) {
       options.body = JSON.stringify(data);
       options.headers = { 'Content-Type': 'application/json' };
     }
