@@ -1,1 +1,10 @@
 node_modules
+*.log
+logs/
+backend/logs/
+backend/prisma/library.db
+backend/prisma/library.db-journal
+dist/
+.env
+.env.local
+.env.*.local
