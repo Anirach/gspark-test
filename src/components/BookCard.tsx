@@ -71,19 +71,27 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn, onDelete, isD
                   // Fallback to placeholder if image fails to load
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
+                  // Show the fallback div
+                  const fallbackDiv = target.parentElement?.querySelector('.fallback-cover');
+                  if (fallbackDiv) {
+                    (fallbackDiv as HTMLElement).style.display = 'flex';
+                  }
                 }}
               />
             ) : null}
             
             {/* Fallback placeholder when no image or image fails */}
-            {!book.coverImage || true && (
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
-                <div className="text-center p-4">
-                  <h3 className="font-bold text-primary text-sm mb-1 line-clamp-3">{book.title}</h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{book.author}</p>
-                </div>
+            <div 
+              className={cn(
+                "fallback-cover w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center",
+                book.coverImage ? "hidden" : "flex"
+              )}
+            >
+              <div className="text-center p-4">
+                <h3 className="font-bold text-primary text-sm mb-1 line-clamp-3">{book.title}</h3>
+                <p className="text-xs text-muted-foreground line-clamp-2">{book.author}</p>
               </div>
-            )}
+            </div>
             
             {/* Status Badge */}
             <Badge 

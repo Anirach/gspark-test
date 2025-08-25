@@ -55,3 +55,14 @@
 2025-08-25T07:22:37: 
 2025-08-25T07:22:37:   ➜  Local:   http://localhost:8080/
 2025-08-25T07:22:37:   ➜  Network: http://169.254.0.21:8080/
+2025-08-25T08:52:45: 8:52:45 AM [vite] hmr update /src/components/BookCard.tsx, /src/index.css
+2025-08-25T08:53:04: 8:53:04 AM [vite] hmr update /src/index.css
+2025-08-25T08:53:09: 
+2025-08-25T08:53:09: > vite_react_shadcn_ts@0.0.0 dev
+2025-08-25T08:53:09: > vite
+2025-08-25T08:53:09: 
+2025-08-25T08:53:10: 
+2025-08-25T08:53:10:   VITE v5.4.19  ready in 516 ms
+2025-08-25T08:53:10: 
+2025-08-25T08:53:10:   ➜  Local:   http://localhost:8080/
+2025-08-25T08:53:10:   ➜  Network: http://169.254.0.21:8080/
