@@ -1,0 +1,44 @@
+2025-08-25T03:57:35: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T03:57:35:     at JSON.parse (<anonymous>)
+2025-08-25T03:57:35:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T03:57:35:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T03:57:35:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T03:57:35:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T03:57:35:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T03:57:35:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T03:57:35:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T03:57:35:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T03:57:35:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T03:58:10: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T03:58:10:     at JSON.parse (<anonymous>)
+2025-08-25T03:58:10:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T03:58:10:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T03:58:10:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T03:58:10:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T03:58:10:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T03:58:10:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T03:58:10:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T03:58:10:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T03:58:10:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T04:25:53: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T04:25:53:     at JSON.parse (<anonymous>)
+2025-08-25T04:25:53:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T04:25:53:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T04:25:53:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T04:25:53:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T04:25:53:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T04:25:53:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T04:25:53:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T04:25:53:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T04:25:53:     at endReadableNT (node:internal/streams/readable:1698:12)
+2025-08-25T04:26:04: ❌ Error: Unexpected token '-', "------WebK"... is not valid JSON SyntaxError: Unexpected token '-', "------WebK"... is not valid JSON
+2025-08-25T04:26:04:     at JSON.parse (<anonymous>)
+2025-08-25T04:26:04:     at createStrictSyntaxError (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:169:10)
+2025-08-25T04:26:04:     at parse (/home/user/webapp/backend/node_modules/body-parser/lib/types/json.js:86:15)
+2025-08-25T04:26:04:     at /home/user/webapp/backend/node_modules/body-parser/lib/read.js:128:18
+2025-08-25T04:26:04:     at AsyncResource.runInAsyncScope (node:async_hooks:206:9)
+2025-08-25T04:26:04:     at invokeCallback (/home/user/webapp/backend/node_modules/raw-body/index.js:238:16)
+2025-08-25T04:26:04:     at done (/home/user/webapp/backend/node_modules/raw-body/index.js:227:7)
+2025-08-25T04:26:04:     at IncomingMessage.onEnd (/home/user/webapp/backend/node_modules/raw-body/index.js:287:7)
+2025-08-25T04:26:04:     at IncomingMessage.emit (node:events:524:28)
+2025-08-25T04:26:04:     at endReadableNT (node:internal/streams/readable:1698:12)

@@ -40,3 +40,104 @@
 2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
 2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
 2025-08-25T03:53:40: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [32m200[0m 14.703 ms - -[0m
+2025-08-25T03:56:12: prisma:query SELECT 1
+2025-08-25T03:56:12: prisma:query SELECT 1
+2025-08-25T03:56:12: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:56:12: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T03:56:12: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T03:56:12: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:56:12: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:56:12: [0mGET /api/books/stats [32m200[0m 4.846 ms - 87[0m
+2025-08-25T03:56:12: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [32m200[0m 4.100 ms - -[0m
+2025-08-25T03:56:12: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:56:12: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT 1
+2025-08-25T04:25:24: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT 1
+2025-08-25T04:25:24: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:25:24: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T04:25:24: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T04:25:24: [0mGET /api/books/stats [32m200[0m 11.929 ms - 87[0m
+2025-08-25T04:25:24: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [32m200[0m 6.359 ms - -[0m
+2025-08-25T04:30:34: prisma:query SELECT 1
+2025-08-25T04:30:34: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T04:30:34: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T04:30:34: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:30:34: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:30:34: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:30:34: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:30:34: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:30:34: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 11.511 ms - -[0m
+2025-08-25T04:30:34: [0mGET /api/books/stats [36m304[0m 9.604 ms - -[0m
+2025-08-25T04:31:13: [0mPOST /api/books [33m400[0m 18.262 ms - 96[0m
+2025-08-25T04:33:55: [0mPOST /api/books [33m400[0m 115.382 ms - 96[0m
+2025-08-25T04:35:16: [0mPOST /api/books [33m400[0m 71.326 ms - 96[0m
+2025-08-25T04:45:54: prisma:query SELECT 1
+2025-08-25T04:45:54: prisma:query SELECT 1
+2025-08-25T04:45:54: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:45:54: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T04:45:54: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T04:45:54: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 3.439 ms - -[0m
+2025-08-25T04:45:55: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:45:55: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:45:55: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:45:55: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:45:55: [0mGET /api/books/stats [36m304[0m 2.575 ms - -[0m
+2025-08-25T04:46:10: prisma:query SELECT 1
+2025-08-25T04:46:10: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:46:10: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:46:10: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:46:10: prisma:query SELECT 1
+2025-08-25T04:46:10: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:46:10: [0mGET /api/books/stats [36m304[0m 2.630 ms - -[0m
+2025-08-25T04:46:10: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T04:46:10: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T04:46:10: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T04:46:10: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 2.707 ms - -[0m
+2025-08-25T05:54:45: prisma:query SELECT 1
+2025-08-25T05:54:45: prisma:query SELECT 1
+2025-08-25T05:54:45: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T05:54:45: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T05:54:45: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T05:54:45: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T05:54:45: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T05:54:45: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T05:54:45: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 23.695 ms - -[0m
+2025-08-25T05:54:45: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T05:54:45: [0mGET /api/books/stats [36m304[0m 34.652 ms - -[0m
+2025-08-25T07:13:40: prisma:query SELECT 1
+2025-08-25T07:13:40: prisma:query SELECT 1
+2025-08-25T07:13:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:13:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:13:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:13:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:13:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:13:40: [0mGET /api/books/stats [36m304[0m 11.505 ms - -[0m
+2025-08-25T07:13:40: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T07:13:40: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T07:13:40: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 22.276 ms - -[0m
+2025-08-25T07:16:38: prisma:query SELECT 1
+2025-08-25T07:16:38: prisma:query SELECT 1
+2025-08-25T07:16:38: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:16:38: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:16:38: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:16:38: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T07:16:38: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T07:16:38: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:16:38: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:16:38: [0mGET /api/books/stats [36m304[0m 9.408 ms - -[0m
+2025-08-25T07:16:38: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [36m304[0m 6.834 ms - -[0m
+2025-08-25T07:17:08: prisma:query SELECT 1
+2025-08-25T07:17:08: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T07:17:08: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T07:17:08: [0mGET /api/books/stats [32m200[0m 25.519 ms - 87[0m
+2025-08-25T07:17:08: prisma:query SELECT 1
+2025-08-25T07:17:08: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:17:08: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:17:08: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:17:08: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:17:08: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T07:17:08: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [32m200[0m 24.212 ms - -[0m

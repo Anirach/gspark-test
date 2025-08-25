@@ -28,3 +28,19 @@
 2025-08-25T03:52:58: 
 2025-08-25T03:52:58:   ➜  Local:   http://localhost:8080/
 2025-08-25T03:52:58:   ➜  Network: http://169.254.0.21:8080/
+2025-08-25T07:15:23: 7:15:23 AM [vite] hmr update /src/components/BookCard.tsx, /src/index.css
+2025-08-25T07:16:00: 7:16:00 AM [vite] hmr update /src/pages/Index.tsx, /src/index.css
+2025-08-25T07:16:14: 7:16:14 AM [vite] hmr update /src/pages/Index.tsx, /src/index.css
+2025-08-25T07:16:27: 7:16:27 AM [vite] hmr update /src/pages/Index.tsx, /src/index.css
+2025-08-25T07:16:30: 7:16:30 AM [vite] ✨ new dependencies optimized: @radix-ui/react-alert-dialog
+2025-08-25T07:16:30: 7:16:30 AM [vite] ✨ optimized dependencies changed. reloading
+2025-08-25T07:16:40: 7:16:40 AM [vite] hmr update /src/components/BookCard.tsx, /src/index.css
+2025-08-25T07:16:46: 
+2025-08-25T07:16:46: > vite_react_shadcn_ts@0.0.0 dev
+2025-08-25T07:16:46: > vite
+2025-08-25T07:16:46: 
+2025-08-25T07:16:47: 
+2025-08-25T07:16:47:   VITE v5.4.19  ready in 672 ms
+2025-08-25T07:16:47: 
+2025-08-25T07:16:47:   ➜  Local:   http://localhost:8080/
+2025-08-25T07:16:47:   ➜  Network: http://169.254.0.21:8080/

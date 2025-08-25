@@ -11,6 +11,16 @@ import { LendBookModal } from '@/components/LendBookModal';
 import { BookOpen, Heart, AlertCircle, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 const Index = () => {
   const {
@@ -44,6 +54,9 @@ const Index = () => {
   const [lendModalOpen, setLendModalOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
+  const [deletingBookId, setDeletingBookId] = useState<string | null>(null);
+  const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [bookToDelete, setBookToDelete] = useState<Book | null>(null);
 
   const handleViewBook = (book: Book) => {
     setSelectedBook(book);
@@ -56,13 +69,21 @@ const Index = () => {
     setDetailModalOpen(false);
   };
 
-  const handleDeleteBook = async (book: Book) => {
+  const handleDeleteBook = (book: Book) => {
+    setBookToDelete(book);
+    setDeleteConfirmOpen(true);
+  };
+
+  const confirmDeleteBook = async () => {
+    if (!bookToDelete) return;
+    
     try {
-      await deleteBook(book.id);
+      setDeletingBookId(bookToDelete.id);
+      await deleteBook(bookToDelete.id);
       setDetailModalOpen(false);
       toast({
         title: "Book deleted",
-        description: `"${book.title}" has been removed from your library.`,
+        description: `"${bookToDelete.title}" has been removed from your library.`,
       });
     } catch (error) {
       console.error('Delete error:', error);
@@ -71,6 +92,10 @@ const Index = () => {
         description: "Failed to delete book. Please try again.",
         variant: "destructive"
       });
+    } finally {
+      setDeletingBookId(null);
+      setDeleteConfirmOpen(false);
+      setBookToDelete(null);
     }
   };
 
@@ -234,6 +259,8 @@ const Index = () => {
                   onEdit={handleEditBook}
                   onLend={handleLendBook}
                   onReturn={handleReturnBook}
+                  onDelete={handleDeleteBook}
+                  isDeleting={deletingBookId === book.id}
                 />
               ))}
             </div>
@@ -278,6 +305,34 @@ const Index = () => {
         onLend={handleLendBookConfirm}
         isLoading={isLending}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={deleteConfirmOpen} onOpenChange={setDeleteConfirmOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure you want to delete this book?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete "{bookToDelete?.title}" by {bookToDelete?.author} from your library.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => {
+              setDeleteConfirmOpen(false);
+              setBookToDelete(null);
+            }}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDeleteBook}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+              disabled={deletingBookId !== null}
+            >
+              {deletingBookId ? 'Deleting...' : 'Delete Book'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
