@@ -2,7 +2,7 @@ import { Book } from '@/types/book';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { FileText, User, Calendar, ExternalLink, Trash2 } from 'lucide-react';
+import { FileText, User, Calendar, ExternalLink, Trash2, Edit, HandHeart, RotateCcw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface BookCardProps {
@@ -153,25 +153,29 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn, onDelete, isD
               </div>
             )}
 
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-2" onClick={(e) => e.stopPropagation()}>
+            {/* Action Buttons - Icon Only Row */}
+            <div className="flex items-center justify-center gap-1" onClick={(e) => e.stopPropagation()}>
+              {/* Edit Button - Always visible */}
               <Button 
                 size="sm" 
                 variant="outline"
-                className="text-xs"
+                className="h-7 w-7 p-0"
                 onClick={() => onEdit(book)}
+                title="Edit book"
               >
-                Edit
+                <Edit className="w-3 h-3" />
               </Button>
               
+              {/* Status-specific action button */}
               {book.status === 'OWNED' && (
                 <Button 
                   size="sm" 
                   variant="secondary"
-                  className="text-xs"
+                  className="h-7 w-7 p-0"
                   onClick={() => onLend(book)}
+                  title="Lend book"
                 >
-                  Lend
+                  <HandHeart className="w-3 h-3" />
                 </Button>
               )}
               
@@ -179,46 +183,37 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn, onDelete, isD
                 <Button 
                   size="sm" 
                   variant="outline"
-                  className="text-xs bg-yellow-50 hover:bg-yellow-100"
+                  className="h-7 w-7 p-0 bg-yellow-50 hover:bg-yellow-100 border-yellow-200"
                   onClick={() => onReturn(book)}
+                  title="Mark as returned"
                 >
-                  Return
+                  <RotateCcw className="w-3 h-3" />
                 </Button>
               )}
 
-              {book.status === 'WISHLIST' && (
-                <Button 
-                  size="sm" 
-                  variant="outline"
-                  className="text-xs bg-blue-50 hover:bg-blue-100"
-                  onClick={() => onEdit(book)}
-                >
-                  Edit
-                </Button>
-              )}
-
+              {/* PDF Button - Only if PDF exists */}
               {book.pdfFile && (
                 <Button 
                   size="sm" 
                   variant="outline"
-                  className="text-xs col-span-1"
+                  className="h-7 w-7 p-0"
                   onClick={() => window.open(getImageUrl(book.pdfFile) || '', '_blank')}
+                  title="Open PDF"
                 >
-                  <ExternalLink className="w-3 h-3 mr-1" />
-                  PDF
+                  <ExternalLink className="w-3 h-3" />
                 </Button>
               )}
 
-              {/* Delete Button - Always visible in bottom row */}
+              {/* Delete Button - Always visible */}
               <Button 
                 size="sm" 
                 variant="destructive"
-                className="text-xs"
+                className="h-7 w-7 p-0"
                 onClick={() => onDelete(book)}
                 disabled={isDeleting}
+                title={isDeleting ? 'Deleting...' : 'Delete book'}
               >
-                <Trash2 className="w-3 h-3 mr-1" />
-                {isDeleting ? 'Deleting...' : 'Delete'}
+                <Trash2 className="w-3 h-3" />
               </Button>
             </div>
           </div>

@@ -66,3 +66,15 @@
 2025-08-25T08:53:10: 
 2025-08-25T08:53:10:   ➜  Local:   http://localhost:8080/
 2025-08-25T08:53:10:   ➜  Network: http://169.254.0.21:8080/
+2025-08-25T09:01:04: 9:01:04 AM [vite] hmr update /src/components/BookCard.tsx, /src/index.css
+2025-08-25T09:01:19: 9:01:19 AM [vite] hmr update /src/components/BookCard.tsx, /src/index.css
+2025-08-25T09:01:28: 
+2025-08-25T09:01:28: > vite_react_shadcn_ts@0.0.0 dev
+2025-08-25T09:01:28: > vite
+2025-08-25T09:01:28: 
+2025-08-25T09:01:28: Port 8080 is in use, trying another one...
+2025-08-25T09:01:28: 
+2025-08-25T09:01:28:   VITE v5.4.19  ready in 429 ms
+2025-08-25T09:01:28: 
+2025-08-25T09:01:28:   ➜  Local:   http://localhost:8081/
+2025-08-25T09:01:28:   ➜  Network: http://169.254.0.21:8081/
