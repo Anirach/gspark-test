@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Book } from '@/types/book';
+import { CreateBookData, LendingData } from '@/services/bookService';
 import { useBooks } from '@/hooks/useBooks';
 import { Header } from '@/components/Header';
 import { SearchBar } from '@/components/SearchBar';
@@ -7,13 +8,21 @@ import { BookCard } from '@/components/BookCard';
 import { AddBookModal } from '@/components/AddBookModal';
 import { BookDetailModal } from '@/components/BookDetailModal';
 import { LendBookModal } from '@/components/LendBookModal';
-import { BookOpen, Heart } from 'lucide-react';
+import { BookOpen, Heart, AlertCircle, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 
 const Index = () => {
   const {
     books,
-    allBooks,
+    stats,
+    isLoading,
+    error,
+    isCreating,
+    isUpdating,
+    isDeleting,
+    isLending,
+    isReturning,
     searchTerm,
     setSearchTerm,
     filterStatus,
@@ -24,7 +33,8 @@ const Index = () => {
     updateBook,
     deleteBook,
     lendBook,
-    returnBook
+    returnBook,
+    refetch
   } = useBooks();
 
   const { toast } = useToast();
@@ -46,13 +56,22 @@ const Index = () => {
     setDetailModalOpen(false);
   };
 
-  const handleDeleteBook = (book: Book) => {
-    deleteBook(book.id);
-    setDetailModalOpen(false);
-    toast({
-      title: "Book deleted",
-      description: `"${book.title}" has been removed from your library.`,
-    });
+  const handleDeleteBook = async (book: Book) => {
+    try {
+      await deleteBook(book.id);
+      setDetailModalOpen(false);
+      toast({
+        title: "Book deleted",
+        description: `"${book.title}" has been removed from your library.`,
+      });
+    } catch (error) {
+      console.error('Delete error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to delete book. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   const handleLendBook = (book: Book) => {
@@ -61,47 +80,105 @@ const Index = () => {
     setDetailModalOpen(false);
   };
 
-  const handleReturnBook = (book: Book) => {
-    returnBook(book.id);
-    toast({
-      title: "Book returned",
-      description: `"${book.title}" has been marked as returned.`,
-    });
-  };
-
-  const handleAddBook = (bookData: Omit<Book, 'id' | 'dateAdded'>) => {
-    if (editingBook) {
-      updateBook(editingBook.id, bookData);
+  const handleReturnBook = async (book: Book) => {
+    try {
+      await returnBook(book.id);
       toast({
-        title: "Book updated",
-        description: `"${bookData.title}" has been updated successfully.`,
+        title: "Book returned",
+        description: `"${book.title}" has been marked as returned.`,
       });
-    } else {
-      addBook(bookData);
+    } catch (error) {
+      console.error('Return error:', error);
       toast({
-        title: "Book added",
-        description: `"${bookData.title}" has been added to your library.`,
+        title: "Error",
+        description: "Failed to return book. Please try again.",
+        variant: "destructive"
       });
     }
-    setEditingBook(null);
   };
 
-  const handleLendBookConfirm = (bookId: string, lendingInfo: Book['lendingInfo']) => {
-    lendBook(bookId, lendingInfo);
-    toast({
-      title: "Book lent",
-      description: `Book has been lent to ${lendingInfo?.borrowerName}.`,
-    });
+  const handleAddBook = async (bookData: CreateBookData) => {
+    try {
+      if (editingBook) {
+        await updateBook(editingBook.id, bookData);
+        toast({
+          title: "Book updated",
+          description: `"${bookData.title}" has been updated successfully.`,
+        });
+      } else {
+        await addBook(bookData);
+        toast({
+          title: "Book added",
+          description: `"${bookData.title}" has been added to your library.`,
+        });
+      }
+      setEditingBook(null);
+      setAddModalOpen(false);
+    } catch (error) {
+      console.error('Add/Update error:', error);
+      toast({
+        title: "Error",
+        description: `Failed to ${editingBook ? 'update' : 'add'} book. Please try again.`,
+        variant: "destructive"
+      });
+    }
   };
 
-  const lentBooksCount = allBooks.filter(book => book.status === 'lent').length;
+  const handleLendBookConfirm = async (bookId: string, lendingData: LendingData) => {
+    try {
+      await lendBook(bookId, lendingData);
+      setLendModalOpen(false);
+      setSelectedBook(null);
+      toast({
+        title: "Book lent",
+        description: `Book has been lent to ${lendingData.borrowerName}.`,
+      });
+    } catch (error) {
+      console.error('Lend error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to lend book. Please try again.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  // Show error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-paper to-accent/30">
+        <Header 
+          onAddBook={() => setAddModalOpen(true)}
+          totalBooks={0}
+          lentBooks={0}
+        />
+        <main className="container mx-auto px-6 py-8">
+          <Alert variant="destructive" className="mb-8">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>
+              Failed to load library data. Please check if the backend server is running.
+              <button 
+                onClick={() => refetch()}
+                className="ml-2 underline hover:no-underline"
+              >
+                Try again
+              </button>
+            </AlertDescription>
+          </Alert>
+        </main>
+      </div>
+    );
+  }
+
+  const totalBooks = stats?.totalBooks || 0;
+  const lentBooks = stats?.lentBooks || 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-paper to-accent/30">
       <Header 
         onAddBook={() => setAddModalOpen(true)}
-        totalBooks={allBooks.length}
-        lentBooks={lentBooksCount}
+        totalBooks={totalBooks}
+        lentBooks={lentBooks}
       />
 
       <main className="container mx-auto px-6 py-8">
@@ -109,13 +186,18 @@ const Index = () => {
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
           filterStatus={filterStatus}
-          onStatusChange={setFilterStatus}
+          onStatusChange={(status) => setFilterStatus(status as any)}
           filterGenre={filterGenre}
           onGenreChange={setFilterGenre}
         />
 
         <div className="mt-8">
-          {books.length === 0 ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center py-16">
+              <Loader2 className="w-8 h-8 animate-spin text-primary" />
+              <span className="ml-2 text-muted-foreground">Loading your library...</span>
+            </div>
+          ) : books.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-24 h-24 mx-auto mb-6 bg-muted rounded-full flex items-center justify-center">
                 <BookOpen className="w-12 h-12 text-muted-foreground" />
@@ -168,6 +250,7 @@ const Index = () => {
         }}
         onAdd={handleAddBook}
         editBook={editingBook}
+        isLoading={isCreating || isUpdating}
       />
 
       <BookDetailModal
@@ -181,6 +264,8 @@ const Index = () => {
         onDelete={handleDeleteBook}
         onLend={handleLendBook}
         onReturn={handleReturnBook}
+        isDeleting={isDeleting}
+        isReturning={isReturning}
       />
 
       <LendBookModal
@@ -191,6 +276,7 @@ const Index = () => {
           setSelectedBook(null);
         }}
         onLend={handleLendBookConfirm}
+        isLoading={isLending}
       />
     </div>
   );

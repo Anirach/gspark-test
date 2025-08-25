@@ -16,11 +16,35 @@ interface BookCardProps {
 export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardProps) => {
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
-      case 'owned': return 'bg-green-100 text-green-800';
-      case 'lent': return 'bg-yellow-100 text-yellow-800';
-      case 'wishlist': return 'bg-blue-100 text-blue-800';
+      case 'OWNED': return 'bg-green-100 text-green-800';
+      case 'LENT': return 'bg-yellow-100 text-yellow-800';
+      case 'WISHLIST': return 'bg-blue-100 text-blue-800';
       default: return 'bg-gray-100 text-gray-800';
     }
+  };
+
+  const getStatusDisplay = (status: Book['status']) => {
+    switch (status) {
+      case 'OWNED': return 'Owned';
+      case 'LENT': return 'Lent';
+      case 'WISHLIST': return 'Wishlist';
+      default: return status;
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleDateString();
+    } catch {
+      return dateString;
+    }
+  };
+
+  // Build image URL for backend-served files
+  const getImageUrl = (path?: string) => {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    return `http://localhost:3001${path}`;
   };
 
   return (
@@ -34,15 +58,23 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
           <div className="aspect-[3/4] relative overflow-hidden rounded-t-lg">
             {book.coverImage ? (
               <img
-                src={book.coverImage}
+                src={getImageUrl(book.coverImage) || ''}
                 alt={book.title}
                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                onError={(e) => {
+                  // Fallback to placeholder if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
               />
-            ) : (
+            ) : null}
+            
+            {/* Fallback placeholder when no image or image fails */}
+            {!book.coverImage || true && (
               <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
                 <div className="text-center p-4">
-                  <h3 className="font-bold text-primary text-sm mb-1">{book.title}</h3>
-                  <p className="text-xs text-muted-foreground">{book.author}</p>
+                  <h3 className="font-bold text-primary text-sm mb-1 line-clamp-3">{book.title}</h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{book.author}</p>
                 </div>
               </div>
             )}
@@ -54,7 +86,7 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
                 getStatusColor(book.status)
               )}
             >
-              {book.status}
+              {getStatusDisplay(book.status)}
             </Badge>
 
             {/* PDF Indicator */}
@@ -74,12 +106,12 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
             
             {book.genre && (
               <Badge variant="secondary" className="text-xs mb-3">
-                {book.genre}
+                {book.genre.replace('_', ' ').toLowerCase()}
               </Badge>
             )}
 
             {/* Lending Info */}
-            {book.status === 'lent' && book.lendingInfo && (
+            {book.status === 'LENT' && book.lendingInfo && (
               <div className="mb-3 p-2 bg-accent rounded-md">
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mb-1">
                   <User className="w-3 h-3" />
@@ -87,7 +119,7 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
                 </div>
                 <div className="flex items-center gap-1 text-xs text-muted-foreground">
                   <Calendar className="w-3 h-3" />
-                  <span>Due: {book.lendingInfo.expectedReturn}</span>
+                  <span>Due: {formatDate(book.lendingInfo.expectedReturn)}</span>
                 </div>
               </div>
             )}
@@ -103,7 +135,7 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
                 Edit
               </Button>
               
-              {book.status === 'owned' && (
+              {book.status === 'OWNED' && (
                 <Button 
                   size="sm" 
                   variant="secondary"
@@ -114,11 +146,11 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
                 </Button>
               )}
               
-              {book.status === 'lent' && (
+              {book.status === 'LENT' && (
                 <Button 
                   size="sm" 
-                  variant="leather"
-                  className="flex-1 text-xs"
+                  variant="outline"
+                  className="flex-1 text-xs bg-yellow-50 hover:bg-yellow-100"
                   onClick={() => onReturn(book)}
                 >
                   Return
@@ -128,9 +160,9 @@ export const BookCard = ({ book, onView, onEdit, onLend, onReturn }: BookCardPro
               {book.pdfFile && (
                 <Button 
                   size="sm" 
-                  variant="gold"
+                  variant="outline"
                   className="px-2"
-                  onClick={() => window.open(`/pdfs/${book.pdfFile}`, '_blank')}
+                  onClick={() => window.open(getImageUrl(book.pdfFile) || '', '_blank')}
                 >
                   <ExternalLink className="w-3 h-3" />
                 </Button>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library API Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .error { background: #ffe6e6; border-left: 4px solid #ff0000; }
+        .success { background: #e6ffe6; border-left: 4px solid #00aa00; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>📚 Library Management API Test</h1>
+    
+    <div>
+        <button onclick="testHealth()">Test Health Check</button>
+        <button onclick="testBooks()">Test Get Books</button>
+        <button onclick="testStats()">Test Get Stats</button>
+        <button onclick="testCreateBook()">Test Create Book</button>
+    </div>
+
+    <div id="results"></div>
+
+    <script>
+        const API_URL = 'https://3001-i50h4204r0z72n8n67cqo-6532622b.e2b.dev/api';
+        
+        function log(message, isError = false) {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = `result ${isError ? 'error' : 'success'}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            results.appendChild(div);
+            results.scrollTop = results.scrollHeight;
+        }
+
+        async function makeRequest(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_URL}${endpoint}`, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        ...options.headers
+                    },
+                    ...options
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                return await response.json();
+            } catch (error) {
+                throw error;
+            }
+        }
+
+        async function testHealth() {
+            try {
+                log('Testing health check...');
+                const result = await makeRequest('/health');
+                log(`✅ Health check successful: ${JSON.stringify(result)}`);
+            } catch (error) {
+                log(`❌ Health check failed: ${error.message}`, true);
+            }
+        }
+
+        async function testBooks() {
+            try {
+                log('Testing get books...');
+                const result = await makeRequest('/books?limit=5');
+                log(`✅ Got ${result.data?.data?.length || 0} books. Total: ${result.data?.total || 0}`);
+                if (result.data?.data?.length > 0) {
+                    const firstBook = result.data.data[0];
+                    log(`First book: "${firstBook.title}" by ${firstBook.author} (Status: ${firstBook.status})`);
+                }
+            } catch (error) {
+                log(`❌ Get books failed: ${error.message}`, true);
+            }
+        }
+
+        async function testStats() {
+            try {
+                log('Testing get stats...');
+                const result = await makeRequest('/books/stats');
+                log(`✅ Stats: Total=${result.data?.totalBooks}, Owned=${result.data?.ownedBooks}, Lent=${result.data?.lentBooks}, Wishlist=${result.data?.wishlistBooks}`);
+            } catch (error) {
+                log(`❌ Get stats failed: ${error.message}`, true);
+            }
+        }
+
+        async function testCreateBook() {
+            try {
+                log('Testing create book...');
+                const bookData = {
+                    title: 'Test Book ' + Date.now(),
+                    author: 'Test Author',
+                    genre: 'TECHNOLOGY',
+                    description: 'A test book created via API',
+                    status: 'OWNED'
+                };
+                
+                const result = await makeRequest('/books', {
+                    method: 'POST',
+                    body: JSON.stringify(bookData)
+                });
+                
+                log(`✅ Created book: "${result.data?.title}" with ID: ${result.data?.id}`);
+            } catch (error) {
+                log(`❌ Create book failed: ${error.message}`, true);
+            }
+        }
+
+        // Auto-run health check on load
+        window.onload = function() {
+            log('🚀 API Test Page Loaded');
+            testHealth();
+        };
+    </script>
+</body>
+</html>

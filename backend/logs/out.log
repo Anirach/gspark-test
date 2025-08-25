@@ -1,0 +1,42 @@
+2025-08-25T03:44:04: ✅ Database connected successfully
+2025-08-25T03:44:04: 🚀 Server running on port 3001
+2025-08-25T03:44:04: 📱 Environment: development
+2025-08-25T03:44:04: 🔗 API URL: http://localhost:3001/api
+2025-08-25T03:44:04: 🏥 Health Check: http://localhost:3001/api/health
+2025-08-25T03:44:04: 📊 Database Studio: Run 'npm run db:studio' to open Prisma Studio
+2025-08-25T03:44:18: [0mGET /api/health [32m200[0m 2.577 ms - 119[0m
+2025-08-25T03:45:11: prisma:query SELECT 1
+2025-08-25T03:45:11: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:45:11: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T03:45:11: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?) LIMIT ? OFFSET ?
+2025-08-25T03:45:11: [0mGET /api/books?limit=3 [32m200[0m 22.636 ms - 1631[0m
+2025-08-25T03:47:11: 🔌 Disconnecting from database...
+2025-08-25T03:47:11: 
+2025-08-25T03:47:11: 🛑 Shutting down gracefully...
+2025-08-25T03:47:12: ✅ Database connected successfully
+2025-08-25T03:47:12: 🚀 Server running on port 3001
+2025-08-25T03:47:12: 📱 Environment: development
+2025-08-25T03:47:12: 🔗 API URL: http://localhost:3001/api
+2025-08-25T03:47:12: 🏥 Health Check: http://localhost:3001/api/health
+2025-08-25T03:47:12: 📊 Database Studio: Run 'npm run db:studio' to open Prisma Studio
+2025-08-25T03:47:17: 🔌 Disconnecting from database...
+2025-08-25T03:47:17: 
+2025-08-25T03:47:17: 🛑 Shutting down gracefully...
+2025-08-25T03:47:18: ✅ Database connected successfully
+2025-08-25T03:47:18: 🚀 Server running on port 3001
+2025-08-25T03:47:18: 📱 Environment: development
+2025-08-25T03:47:18: 🔗 API URL: http://localhost:3001/api
+2025-08-25T03:47:18: 🏥 Health Check: http://localhost:3001/api/health
+2025-08-25T03:47:18: 📊 Database Studio: Run 'npm run db:studio' to open Prisma Studio
+2025-08-25T03:48:45: [0mGET /api/health [32m200[0m 2.324 ms - 119[0m
+2025-08-25T03:53:21: [0mGET /api/health [32m200[0m 0.556 ms - 119[0m
+2025-08-25T03:53:40: prisma:query SELECT 1
+2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:53:40: prisma:query SELECT `main`.`books`.`id`, `main`.`books`.`title`, `main`.`books`.`author`, `main`.`books`.`isbn`, `main`.`books`.`genre`, `main`.`books`.`description`, `main`.`books`.`coverImage`, `main`.`books`.`pdfFile`, `main`.`books`.`status`, `main`.`books`.`dateAdded`, `main`.`books`.`createdAt`, `main`.`books`.`updatedAt` FROM `main`.`books` WHERE 1=1 ORDER BY `main`.`books`.`createdAt` DESC LIMIT ? OFFSET ?
+2025-08-25T03:53:40: prisma:query SELECT `main`.`lending_info`.`id`, `main`.`lending_info`.`borrowerName`, `main`.`lending_info`.`borrowerContact`, `main`.`lending_info`.`dateLent`, `main`.`lending_info`.`expectedReturn`, `main`.`lending_info`.`actualReturn`, `main`.`lending_info`.`notes`, `main`.`lending_info`.`bookId`, `main`.`lending_info`.`createdAt`, `main`.`lending_info`.`updatedAt` FROM `main`.`lending_info` WHERE `main`.`lending_info`.`bookId` IN (?,?,?,?,?,?) LIMIT ? OFFSET ?
+2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE 1=1 LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:53:40: [0mGET /api/books/stats [32m200[0m 12.536 ms - 87[0m
+2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:53:40: prisma:query SELECT COUNT(*) FROM (SELECT `main`.`books`.`id` FROM `main`.`books` WHERE `main`.`books`.`status` = ? LIMIT ? OFFSET ?) AS `sub`
+2025-08-25T03:53:40: [0mGET /api/books?search=&status=all&genre=all&page=1&limit=50 [32m200[0m 14.703 ms - -[0m

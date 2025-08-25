@@ -1,49 +1,75 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Book, BookStatus } from '@/types/book';
+import { CreateBookData } from '@/services/bookService';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, X } from 'lucide-react';
+import { Upload, X, FileText, Image } from 'lucide-react';
 
 interface AddBookModalProps {
   open: boolean;
   onClose: () => void;
-  onAdd: (book: Omit<Book, 'id' | 'dateAdded'>) => void;
-  editBook?: Book;
+  onAdd: (book: CreateBookData) => void;
+  editBook?: Book | null;
+  isLoading?: boolean;
 }
 
-export const AddBookModal = ({ open, onClose, onAdd, editBook }: AddBookModalProps) => {
+export const AddBookModal = ({ open, onClose, onAdd, editBook, isLoading }: AddBookModalProps) => {
   const [formData, setFormData] = useState({
-    title: editBook?.title || '',
-    author: editBook?.author || '',
-    isbn: editBook?.isbn || '',
-    genre: editBook?.genre || '',
-    description: editBook?.description || '',
-    coverImage: editBook?.coverImage || '',
-    status: (editBook?.status || 'owned') as BookStatus,
-    pdfFile: editBook?.pdfFile || ''
+    title: '',
+    author: '',
+    isbn: '',
+    genre: '',
+    description: '',
+    status: 'OWNED' as BookStatus,
   });
+  
+  const [files, setFiles] = useState<{
+    coverImage?: File;
+    pdfFile?: File;
+  }>({});
+
+  const coverImageRef = useRef<HTMLInputElement>(null);
+  const pdfFileRef = useRef<HTMLInputElement>(null);
+
+  // Update form data when editBook changes
+  useEffect(() => {
+    if (editBook) {
+      setFormData({
+        title: editBook.title || '',
+        author: editBook.author || '',
+        isbn: editBook.isbn || '',
+        genre: editBook.genre || '',
+        description: editBook.description || '',
+        status: editBook.status || 'OWNED',
+      });
+    } else {
+      setFormData({
+        title: '',
+        author: '',
+        isbn: '',
+        genre: '',
+        description: '',
+        status: 'OWNED',
+      });
+    }
+    setFiles({});
+  }, [editBook]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.author) return;
 
-    onAdd({
-      title: formData.title,
-      author: formData.author,
-      isbn: formData.isbn || undefined,
-      genre: formData.genre || undefined,
-      description: formData.description || undefined,
-      coverImage: formData.coverImage || undefined,
-      pdfFile: formData.pdfFile || undefined,
-      status: formData.status,
-      lendingInfo: editBook?.lendingInfo
-    });
+    const bookData: CreateBookData = {
+      ...formData,
+      ...(files.coverImage && { coverImage: files.coverImage }),
+      ...(files.pdfFile && { pdfFile: files.pdfFile })
+    };
 
-    handleClose();
+    onAdd(bookData);
   };
 
   const handleClose = () => {
@@ -53,11 +79,29 @@ export const AddBookModal = ({ open, onClose, onAdd, editBook }: AddBookModalPro
       isbn: '',
       genre: '',
       description: '',
-      coverImage: '',
-      status: 'owned',
-      pdfFile: ''
+      status: 'OWNED',
     });
+    setFiles({});
+    if (coverImageRef.current) coverImageRef.current.value = '';
+    if (pdfFileRef.current) pdfFileRef.current.value = '';
     onClose();
+  };
+
+  const handleFileChange = (type: 'coverImage' | 'pdfFile') => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFiles(prev => ({ ...prev, [type]: file }));
+    }
+  };
+
+  const removeFile = (type: 'coverImage' | 'pdfFile') => {
+    setFiles(prev => ({ ...prev, [type]: undefined }));
+    if (type === 'coverImage' && coverImageRef.current) {
+      coverImageRef.current.value = '';
+    }
+    if (type === 'pdfFile' && pdfFileRef.current) {
+      pdfFileRef.current.value = '';
+    }
   };
 
   return (
@@ -115,18 +159,23 @@ export const AddBookModal = ({ open, onClose, onAdd, editBook }: AddBookModalPro
                   <SelectValue placeholder="Select genre" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="fiction">Fiction</SelectItem>
-                  <SelectItem value="non-fiction">Non-Fiction</SelectItem>
-                  <SelectItem value="science">Science</SelectItem>
-                  <SelectItem value="history">History</SelectItem>
-                  <SelectItem value="biography">Biography</SelectItem>
-                  <SelectItem value="fantasy">Fantasy</SelectItem>
-                  <SelectItem value="mystery">Mystery</SelectItem>
-                  <SelectItem value="romance">Romance</SelectItem>
-                  <SelectItem value="design">Design</SelectItem>
-                  <SelectItem value="architecture">Architecture</SelectItem>
-                  <SelectItem value="technology">Technology</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value="FICTION">Fiction</SelectItem>
+                  <SelectItem value="NON_FICTION">Non-Fiction</SelectItem>
+                  <SelectItem value="SCIENCE">Science</SelectItem>
+                  <SelectItem value="HISTORY">History</SelectItem>
+                  <SelectItem value="BIOGRAPHY">Biography</SelectItem>
+                  <SelectItem value="FANTASY">Fantasy</SelectItem>
+                  <SelectItem value="MYSTERY">Mystery</SelectItem>
+                  <SelectItem value="ROMANCE">Romance</SelectItem>
+                  <SelectItem value="DESIGN">Design</SelectItem>
+                  <SelectItem value="ARCHITECTURE">Architecture</SelectItem>
+                  <SelectItem value="TECHNOLOGY">Technology</SelectItem>
+                  <SelectItem value="BUSINESS">Business</SelectItem>
+                  <SelectItem value="SELF_HELP">Self Help</SelectItem>
+                  <SelectItem value="TRAVEL">Travel</SelectItem>
+                  <SelectItem value="COOKING">Cooking</SelectItem>
+                  <SelectItem value="ART">Art</SelectItem>
+                  <SelectItem value="OTHER">Other</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -139,20 +188,102 @@ export const AddBookModal = ({ open, onClose, onAdd, editBook }: AddBookModalPro
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="owned">Owned</SelectItem>
-                <SelectItem value="wishlist">Wishlist</SelectItem>
+                <SelectItem value="OWNED">Owned</SelectItem>
+                <SelectItem value="WISHLIST">Wishlist</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
+          {/* Cover Image Upload */}
           <div className="space-y-2">
-            <Label htmlFor="coverImage">Cover Image URL</Label>
-            <Input
-              id="coverImage"
-              value={formData.coverImage}
-              onChange={(e) => setFormData(prev => ({ ...prev, coverImage: e.target.value }))}
-              placeholder="https://example.com/cover.jpg"
-            />
+            <Label>Cover Image</Label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => coverImageRef.current?.click()}
+                  className="flex items-center gap-2"
+                >
+                  <Image className="h-4 w-4" />
+                  Choose Image
+                </Button>
+                <input
+                  ref={coverImageRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange('coverImage')}
+                  className="hidden"
+                />
+              </div>
+              
+              {files.coverImage && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted p-2 rounded">
+                  <Image className="h-4 w-4" />
+                  <span className="flex-1 truncate">{files.coverImage.name}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeFile('coverImage')}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              )}
+              
+              {editBook?.coverImage && !files.coverImage && (
+                <div className="text-sm text-muted-foreground">
+                  Current: {editBook.coverImage}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* PDF File Upload */}
+          <div className="space-y-2">
+            <Label>PDF File</Label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => pdfFileRef.current?.click()}
+                  className="flex items-center gap-2"
+                >
+                  <FileText className="h-4 w-4" />
+                  Choose PDF
+                </Button>
+                <input
+                  ref={pdfFileRef}
+                  type="file"
+                  accept=".pdf"
+                  onChange={handleFileChange('pdfFile')}
+                  className="hidden"
+                />
+              </div>
+              
+              {files.pdfFile && (
+                <div className="flex items-center gap-2 text-sm text-muted-foreground bg-muted p-2 rounded">
+                  <FileText className="h-4 w-4" />
+                  <span className="flex-1 truncate">{files.pdfFile.name}</span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => removeFile('pdfFile')}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                </div>
+              )}
+              
+              {editBook?.pdfFile && !files.pdfFile && (
+                <div className="text-sm text-muted-foreground">
+                  Current: {editBook.pdfFile}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -166,31 +297,12 @@ export const AddBookModal = ({ open, onClose, onAdd, editBook }: AddBookModalPro
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="pdfFile">PDF File</Label>
-            <div className="flex items-center gap-2">
-              <Input
-                id="pdfFile"
-                value={formData.pdfFile}
-                onChange={(e) => setFormData(prev => ({ ...prev, pdfFile: e.target.value }))}
-                placeholder="filename.pdf"
-                className="flex-1"
-              />
-              <Button type="button" variant="outline" size="icon">
-                <Upload className="h-4 w-4" />
-              </Button>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Note: In a full implementation, this would handle file uploads
-            </p>
-          </div>
-
           <div className="flex gap-3 pt-4">
             <Button type="button" variant="outline" onClick={handleClose} className="flex-1">
               Cancel
             </Button>
-            <Button type="submit" className="flex-1">
-              {editBook ? 'Update Book' : 'Add Book'}
+            <Button type="submit" className="flex-1" disabled={isLoading}>
+              {isLoading ? 'Saving...' : editBook ? 'Update Book' : 'Add Book'}
             </Button>
           </div>
         </form>

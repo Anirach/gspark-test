@@ -7,17 +7,42 @@ export interface Book {
   description?: string;
   coverImage?: string;
   pdfFile?: string;
-  status: 'owned' | 'lent' | 'wishlist';
+  status: 'OWNED' | 'LENT' | 'WISHLIST';
   dateAdded: string;
+  createdAt: string;
+  updatedAt: string;
   lendingInfo?: LendingInfo;
 }
 
 export interface LendingInfo {
+  id: string;
   borrowerName: string;
   borrowerContact: string;
   dateLent: string;
   expectedReturn: string;
+  actualReturn?: string;
+  notes?: string;
+  bookId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export type BookStatus = 'owned' | 'lent' | 'wishlist';
-export type BookGenre = 'fiction' | 'non-fiction' | 'science' | 'history' | 'biography' | 'fantasy' | 'mystery' | 'romance' | 'other';
+export type BookStatus = 'OWNED' | 'LENT' | 'WISHLIST';
+export type BookGenre = 
+  | 'FICTION' 
+  | 'NON_FICTION' 
+  | 'SCIENCE' 
+  | 'HISTORY' 
+  | 'BIOGRAPHY' 
+  | 'FANTASY' 
+  | 'MYSTERY' 
+  | 'ROMANCE' 
+  | 'TECHNOLOGY' 
+  | 'BUSINESS' 
+  | 'SELF_HELP' 
+  | 'TRAVEL' 
+  | 'COOKING' 
+  | 'ART' 
+  | 'DESIGN' 
+  | 'ARCHITECTURE' 
+  | 'OTHER';

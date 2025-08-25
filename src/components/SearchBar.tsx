@@ -40,9 +40,9 @@ export const SearchBar = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="owned">Owned</SelectItem>
-              <SelectItem value="lent">Lent</SelectItem>
-              <SelectItem value="wishlist">Wishlist</SelectItem>
+              <SelectItem value="OWNED">Owned</SelectItem>
+              <SelectItem value="LENT">Lent</SelectItem>
+              <SelectItem value="WISHLIST">Wishlist</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -53,18 +53,23 @@ export const SearchBar = ({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Genres</SelectItem>
-            <SelectItem value="fiction">Fiction</SelectItem>
-            <SelectItem value="non-fiction">Non-Fiction</SelectItem>
-            <SelectItem value="science">Science</SelectItem>
-            <SelectItem value="history">History</SelectItem>
-            <SelectItem value="biography">Biography</SelectItem>
-            <SelectItem value="fantasy">Fantasy</SelectItem>
-            <SelectItem value="mystery">Mystery</SelectItem>
-            <SelectItem value="romance">Romance</SelectItem>
-            <SelectItem value="design">Design</SelectItem>
-            <SelectItem value="architecture">Architecture</SelectItem>
-            <SelectItem value="technology">Technology</SelectItem>
-            <SelectItem value="other">Other</SelectItem>
+            <SelectItem value="FICTION">Fiction</SelectItem>
+            <SelectItem value="NON_FICTION">Non-Fiction</SelectItem>
+            <SelectItem value="SCIENCE">Science</SelectItem>
+            <SelectItem value="HISTORY">History</SelectItem>
+            <SelectItem value="BIOGRAPHY">Biography</SelectItem>
+            <SelectItem value="FANTASY">Fantasy</SelectItem>
+            <SelectItem value="MYSTERY">Mystery</SelectItem>
+            <SelectItem value="ROMANCE">Romance</SelectItem>
+            <SelectItem value="DESIGN">Design</SelectItem>
+            <SelectItem value="ARCHITECTURE">Architecture</SelectItem>
+            <SelectItem value="TECHNOLOGY">Technology</SelectItem>
+            <SelectItem value="BUSINESS">Business</SelectItem>
+            <SelectItem value="SELF_HELP">Self Help</SelectItem>
+            <SelectItem value="TRAVEL">Travel</SelectItem>
+            <SelectItem value="COOKING">Cooking</SelectItem>
+            <SelectItem value="ART">Art</SelectItem>
+            <SelectItem value="OTHER">Other</SelectItem>
           </SelectContent>
         </Select>
       </div>

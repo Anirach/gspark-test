@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { X, FileText, User, Calendar, ExternalLink, Edit, Trash2 } from 'lucide-react';
+import { X, FileText, User, Calendar, ExternalLink, Edit, Trash2, Loader2 } from 'lucide-react';
 
 interface BookDetailModalProps {
   book: Book | null;
@@ -13,6 +13,8 @@ interface BookDetailModalProps {
   onDelete: (book: Book) => void;
   onLend: (book: Book) => void;
   onReturn: (book: Book) => void;
+  isDeleting?: boolean;
+  isReturning?: boolean;
 }
 
 export const BookDetailModal = ({ 
@@ -22,17 +24,43 @@ export const BookDetailModal = ({
   onEdit, 
   onDelete, 
   onLend, 
-  onReturn 
+  onReturn,
+  isDeleting,
+  isReturning
 }: BookDetailModalProps) => {
   if (!book) return null;
 
   const getStatusColor = (status: Book['status']) => {
     switch (status) {
-      case 'owned': return 'bg-green-100 text-green-800';
-      case 'lent': return 'bg-yellow-100 text-yellow-800';
-      case 'wishlist': return 'bg-blue-100 text-blue-800';
+      case 'OWNED': return 'bg-green-100 text-green-800';
+      case 'LENT': return 'bg-yellow-100 text-yellow-800';
+      case 'WISHLIST': return 'bg-blue-100 text-blue-800';
       default: return 'bg-gray-100 text-gray-800';
     }
+  };
+
+  const getStatusDisplay = (status: Book['status']) => {
+    switch (status) {
+      case 'OWNED': return 'Owned';
+      case 'LENT': return 'Lent';
+      case 'WISHLIST': return 'Wishlist';
+      default: return status;
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleDateString();
+    } catch {
+      return dateString;
+    }
+  };
+
+  // Build image URL for backend-served files
+  const getImageUrl = (path?: string) => {
+    if (!path) return null;
+    if (path.startsWith('http')) return path;
+    return `http://localhost:3001${path}`;
   };
 
   return (
@@ -53,15 +81,20 @@ export const BookDetailModal = ({
             <div className="aspect-[3/4] relative overflow-hidden rounded-lg shadow-book">
               {book.coverImage ? (
                 <img
-                  src={book.coverImage}
+                  src={getImageUrl(book.coverImage) || ''}
                   alt={book.title}
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
                 />
-              ) : (
+              ) : null}
+              {!book.coverImage && (
                 <div className="w-full h-full bg-gradient-to-br from-primary/20 to-primary/40 flex items-center justify-center">
                   <div className="text-center p-4">
-                    <h3 className="font-bold text-primary text-lg mb-2">{book.title}</h3>
-                    <p className="text-sm text-muted-foreground">{book.author}</p>
+                    <h3 className="font-bold text-primary text-lg mb-2 line-clamp-3">{book.title}</h3>
+                    <p className="text-sm text-muted-foreground line-clamp-2">{book.author}</p>
                   </div>
                 </div>
               )}
@@ -78,7 +111,7 @@ export const BookDetailModal = ({
                 Edit Book
               </Button>
 
-              {book.status === 'owned' && (
+              {book.status === 'OWNED' && (
                 <Button 
                   onClick={() => onLend(book)}
                   className="w-full"
@@ -89,22 +122,32 @@ export const BookDetailModal = ({
                 </Button>
               )}
 
-              {book.status === 'lent' && (
+              {book.status === 'LENT' && (
                 <Button 
                   onClick={() => onReturn(book)}
                   className="w-full"
-                  variant="leather"
+                  variant="outline"
+                  disabled={isReturning}
                 >
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Mark Returned
+                  {isReturning ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Returning...
+                    </>
+                  ) : (
+                    <>
+                      <Calendar className="w-4 h-4 mr-2" />
+                      Mark Returned
+                    </>
+                  )}
                 </Button>
               )}
 
               {book.pdfFile && (
                 <Button 
-                  onClick={() => window.open(`/pdfs/${book.pdfFile}`, '_blank')}
+                  onClick={() => window.open(getImageUrl(book.pdfFile) || '', '_blank')}
                   className="w-full"
-                  variant="gold"
+                  variant="outline"
                 >
                   <FileText className="w-4 h-4 mr-2" />
                   View PDF
@@ -115,9 +158,19 @@ export const BookDetailModal = ({
                 onClick={() => onDelete(book)}
                 className="w-full"
                 variant="destructive"
+                disabled={isDeleting}
               >
-                <Trash2 className="w-4 h-4 mr-2" />
-                Delete Book
+                {isDeleting ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    Delete Book
+                  </>
+                )}
               </Button>
             </div>
           </div>
@@ -128,17 +181,17 @@ export const BookDetailModal = ({
               <h1 className="text-2xl font-bold text-foreground mb-2">{book.title}</h1>
               <p className="text-lg text-muted-foreground mb-4">by {book.author}</p>
               
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
                 <Badge className={getStatusColor(book.status)}>
-                  {book.status.charAt(0).toUpperCase() + book.status.slice(1)}
+                  {getStatusDisplay(book.status)}
                 </Badge>
                 {book.genre && (
                   <Badge variant="secondary">
-                    {book.genre}
+                    {book.genre.replace('_', ' ').toLowerCase()}
                   </Badge>
                 )}
                 {book.pdfFile && (
-                  <Badge variant="outline" className="bg-leather/10 text-leather border-leather">
+                  <Badge variant="outline" className="bg-primary/10 text-primary border-primary">
                     <FileText className="w-3 h-3 mr-1" />
                     PDF Available
                   </Badge>
@@ -160,7 +213,7 @@ export const BookDetailModal = ({
               <div>
                 <span className="font-medium text-foreground">Date Added: </span>
                 <span className="text-muted-foreground">
-                  {new Date(book.dateAdded).toLocaleDateString()}
+                  {formatDate(book.createdAt || book.dateAdded)}
                 </span>
               </div>
 
@@ -173,7 +226,7 @@ export const BookDetailModal = ({
             </div>
 
             {/* Lending Information */}
-            {book.status === 'lent' && book.lendingInfo && (
+            {book.status === 'LENT' && book.lendingInfo && (
               <>
                 <Separator />
                 <div className="bg-accent p-4 rounded-lg">
@@ -192,14 +245,20 @@ export const BookDetailModal = ({
                     </div>
                     <div>
                       <span className="font-medium">Date Lent: </span>
-                      <span>{new Date(book.lendingInfo.dateLent).toLocaleDateString()}</span>
+                      <span>{formatDate(book.lendingInfo.dateLent)}</span>
                     </div>
                     <div>
                       <span className="font-medium">Expected Return: </span>
                       <span className="text-yellow-700">
-                        {new Date(book.lendingInfo.expectedReturn).toLocaleDateString()}
+                        {formatDate(book.lendingInfo.expectedReturn)}
                       </span>
                     </div>
+                    {book.lendingInfo.notes && (
+                      <div>
+                        <span className="font-medium">Notes: </span>
+                        <span>{book.lendingInfo.notes}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </>
